@@ -3,6 +3,7 @@
 
 ## 👨🏻‍💻 Back-End
 * Node.js / Express.js
+* mongoDB / mongoose
    
 <br>
 
