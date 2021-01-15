@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 
 const config = require('./config/key');
 
+const { auth } = require("./middleware/auth");
 const { User } = require("./models/User"); // User 모델을 가져옴
 
 //application/json 분석해서 가져 올 수 있게 함
@@ -30,7 +31,7 @@ app.get('/', (req, res) => res.send('Hello World 안녕하세요.sdawd')); //루
 
 
 // 회원 가입 할 때 필요한 정보들을 client 에서 가져오면 것들은 데이터 베이스에 넣어준다.
-app.post('/register', (req, res) => {
+app.post('/api/users/register', (req, res) => {
 
   //회원 가입 할떄 필요한 정보들을  client에서 가져오면 
   //그것들을  데이터 베이스에 넣어준다. 
@@ -52,7 +53,8 @@ app.post('/register', (req, res) => {
     });
 });
 
-app.post('/login', (req, res) => {
+//로그인 
+app.post('/api/users/login', (req, res) => {
 
   //1. 요청된 이메일을 데이터베이스에서 있는지 찾는다.
   User.findOne({ email: req.body.email }, (err, user) => {
@@ -78,9 +80,37 @@ app.post('/login', (req, res) => {
         .status(200)
         .json({ loginSuccess: true, userID: user._id});
       });
+    });
   });
+});
+
+//role이 0이면 일반유저, 1이면 Admin
+app.get('/api/users/auth', auth, (req, res) => {
+  //여기 까지 미들웨어를 통과해 왔다는 이야기는 Authentication이 true라는 말
+  res.status(200).json({
+    _id: req.user._id,
+    isAdmin: req.user.role === 0 ? false : true,
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    lastname: req.user.lastname,
+    role: req.user.role,
+    image: req.user.image,
+  });
+});
+
+app.get('/api/users/logout', auth, (req, res) => {
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+    { token: "" },
+    (err, user) => {
+    if(err) {
+      return res.json({ success: false, err });
+    };
+    return res.status(200).send({ success: true });
   });
 });
 
 const port = 5000; //서버 포트
+
 app.listen(port, () => console.log(`Example app listen ${port}`));
