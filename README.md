@@ -20,9 +20,12 @@
 * Bcrypt : 비밀번호 암호화
 * Jsonwebtoken: 토큰 생성
 * cookie-parser: 요청된 쿠키를 쉽게 추출할 수 있도록 도와주는 미들웨어
+
 <br>
 
 ## 📈 Client 참고 사항
+1. actions, reducers : redux 관련 폴더
+2. components: View 관련 폴더
 
 <br>
 
