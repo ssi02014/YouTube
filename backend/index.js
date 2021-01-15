@@ -1,12 +1,11 @@
 const express = require('express'); //express 모듈 가져옴
 const app = express(); //새로운 express app을 만듦
-
 const bodyParser = require('body-parser'); //bodyparser란, 클라이언트에서 오는 정보를 서버에서 분석해서 가져올 수 있게함
 const cookieParser = require('cookie-parser');
-
 const config = require('./config/key');
+const port = 5000; //서버 포트
 
-const { auth } = require("./middleware/auth");
+const { auth } = require("./middleware/auth"); //auth 미들웨어를 가져옴
 const { User } = require("./models/User"); // User 모델을 가져옴
 
 //application/json 분석해서 가져 올 수 있게 함
@@ -110,7 +109,5 @@ app.get('/api/users/logout', auth, (req, res) => {
     return res.status(200).send({ success: true });
   });
 });
-
-const port = 5000; //서버 포트
 
 app.listen(port, () => console.log(`Example app listen ${port}`));
