@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 //user 스키마 작성
 const userSchema = mongoose.Schema({
@@ -8,20 +10,20 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        trim: true, //공백 제거
+        trim: true,
         unique: 1
     },
     password: {
         type: String,
-        maxlength: 15,
+        minlength: 5
     },
     lastname: {
         type: String,
-        maxlength: 50,
+        maxlength: 50
     },
-    rold: {
+    role: {
         type: Number,
-        default: 0,
+        default: 0
     },
     image: String,
     token: {
@@ -29,6 +31,24 @@ const userSchema = mongoose.Schema({
     },
     tokenExp: {
         type: Number
+    }
+});
+
+userSchema.pre('save', function (next) {
+    var user = this;
+    if (user.isModified('password')) {
+        //비밀번호를 암호화 시킨다.
+        bcrypt.genSalt(saltRounds, function (err, salt) {
+            if (err) return next(err)
+
+            bcrypt.hash(user.password, salt, function (err, hash) {
+                if (err) return next(err)
+                user.password = hash
+                next()
+            })
+        })
+    } else {
+        next()
     }
 });
 
