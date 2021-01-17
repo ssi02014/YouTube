@@ -11,7 +11,7 @@
 
 <br>
 
-## 👨🏻‍💻 Server 참고 사항
+## 👨🏻‍💻 Server 참고 사항 및 패키지
 * Node.js / Express.js
 * mongoDB / mongoose
 * body-parser : Client에서 넘어온 정보를 Server가 분석해서 가져올 수 있게 함
@@ -23,9 +23,14 @@
 
 <br>
 
-## 📈 Client 참고 사항
-1. actions, reducers : redux 관련 폴더
-2. components: View 관련 폴더
+## 📈 Client 참고 사항 및 패키지
+* actions, reducers : redux 관련 폴더
+* components: View 관련 폴더
+
+<br>
+
+1. react-router-dom
+2. node-sass@4.14.1
 
 <br>
 
