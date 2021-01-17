@@ -31,6 +31,9 @@
 
 1. react-router-dom
 2. node-sass@4.14.1
+3. axios: react js에서 request를 보내기 위해 사용
+4. package.json에 proxy를 추가해서 CORS 오류 해결
+5. concurrently: 서버와 클라이언트 동시에 열기
 
 <br>
 
@@ -44,4 +47,11 @@
 ```
 
 <br>
+
+## 🔍 client: package.json에 proxy 추가
+```javascript
+    {
+        "proxy": "http://localhost:5000/"
+    }
+```
 
