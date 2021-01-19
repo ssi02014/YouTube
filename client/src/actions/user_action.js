@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { LOGIN_USER, REGISTER_USER } from './types';
 
-
+//액션 생성 함수
 export function loginUser(dataToSubmit) {
 
     const request = axios.post('/api/users/login', dataToSubmit)
