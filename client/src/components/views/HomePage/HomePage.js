@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 const HomePage = (props) => {
 
@@ -12,6 +13,9 @@ const HomePage = (props) => {
     const onClickHandler = () => {
         axios.get('/api/users/logout')
         .then(response => {
+
+            console.log(response);
+
             if (response.data.success) {
                 props.history.push('/login');
             } else {
@@ -33,4 +37,4 @@ const HomePage = (props) => {
     );
 };
 
-export default HomePage;
+export default withRouter(HomePage);

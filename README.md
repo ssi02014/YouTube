@@ -26,6 +26,7 @@
 ## 📈 Client 참고 사항 및 패키지
 * actions, reducers : redux 관련 폴더
 * components: View 관련 폴더
+* HOC: 페이지 접근에 대한 권한 설정
 
 <br>
 
@@ -62,6 +63,8 @@
 ```javascript
     //액션 타입
     export const LOGIN_USER = "login_user";
+    export const REGISTER_USER = "register_user";
+    export const AUTH_USER = "auth_user";
 ```
 
 <br>
@@ -92,10 +95,11 @@
             case LOGIN_USER:
                 return {...state, loginSuccess: action.payload}
         
-                
             case REGISTER_USER:
                 return {...state, register: action.payload}
-            
+        
+            case AUTH_USER:
+                return {...state, userData: action.payload}
 
             default:
                 return state;
