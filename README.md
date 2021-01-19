@@ -33,7 +33,7 @@
 2. node-sass@4.14.1
 3. axios: react js에서 request를 보내기 위해 사용
 4. package.json에 proxy를 추가해서 CORS 오류 해결
-5. concurrently: 서버와 클라이언트 동시에 열기
+5. redux, react-redux, redux-promise, redux-thunk, redux-devtools-extension: redux 관련 패키지
 
 <br>
 

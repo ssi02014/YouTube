@@ -9,7 +9,6 @@ const HomePage = () => {
         .then(response => console.log(response.data));
     }, []);
 
-
     return (
 
         <div>
