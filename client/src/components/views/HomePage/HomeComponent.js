@@ -3,7 +3,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import Header from '../Header';
 
-const HomePage = (props) => {
+const HomeComponent = (props) => {
 
     //홈페이지 들어오면 useEffect를 실행 1번만
     useEffect(() => {
@@ -27,7 +27,7 @@ const HomePage = (props) => {
 
     return (
         <>
-            <Header></Header>
+            {/* <Header></Header> */}
             <div style={{
                 display: 'flex', justifyContent: 'center', alignItems: 'center', 
                 width: '100%', height: '100vh'
@@ -40,4 +40,4 @@ const HomePage = (props) => {
     );
 };
 
-export default withRouter(HomePage);
+export default withRouter(HomeComponent);

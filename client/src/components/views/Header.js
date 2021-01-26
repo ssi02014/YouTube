@@ -9,12 +9,15 @@ const Header = (props) => {
     const [login, setLogin] = useState(false);
 
     useEffect((login) => {
-        axios.get('/api/users/auth')
-        .then(response => {
-            if(response.data.isAuth) {
-                setLogin(!login);
-            }
-        })
+        // axios.get('/api/users/auth')
+        // .then(response => {
+        //     if(response.data.isAuth) {
+        //         setLogin(!login);
+        //     }
+        // })
+        if(localStorage.getItem('userID')) {
+            setLogin(!login);
+        }
     }, []);
 
     const onClickHandler = () => {
@@ -24,6 +27,7 @@ const Header = (props) => {
 
             if (response.data.success) {
                 setLogin(!login);
+                localStorage.removeItem('userID');
                 props.history.push('/');
             } else {
                 alert("로그아웃하는데 실패하였습니다.");

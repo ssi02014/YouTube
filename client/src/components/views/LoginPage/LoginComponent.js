@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { loginUser} from '../../../actions/user_action';
 import { withRouter } from 'react-router-dom';
 
-const LoginPage = (props) => {
+const LoginComponent = (props) => {
     const dispatch = useDispatch();
 
     const [email, setEmail] = useState("");
@@ -34,6 +34,7 @@ const LoginPage = (props) => {
                 console.log(response);
                 
                 if(response.payload.loginSuccess) {
+                    window.localStorage.setItem('userID', response.payload.userID);
                     props.history.push('/');
                 } else {
                     alert('Error');
@@ -64,4 +65,4 @@ const LoginPage = (props) => {
     );
 };
 
-export default withRouter(LoginPage);
+export default withRouter(LoginComponent);
