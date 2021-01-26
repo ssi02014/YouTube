@@ -27,6 +27,7 @@
 * actions, reducers : redux 관련 폴더
 * components: View 관련 폴더
 * HOC: 페이지 접근에 대한 권한 설정
+* Pages: Route를 통해 렌더링할 Component 생성
 
 <br>
 
