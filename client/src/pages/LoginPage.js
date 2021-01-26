@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/views/Header';
+import Header from '../components/views/Header/Header';
 import LoginComponent from '../components/views/LoginPage/LoginComponent';
 
 const LoginPage = () => {

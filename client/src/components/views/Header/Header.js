@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
-import '../../scss/Header.scss';
+import '../../../scss/Header.scss';
 
 
     

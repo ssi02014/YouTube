@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../components/views/Header';
+import Header from '../components/views/Header/Header';
 import RegisterComponent from '../components/views/RegisterPage/RegisterComponent';
 
 const RegisterPage = () => {
