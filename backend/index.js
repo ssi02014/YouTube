@@ -1,7 +1,12 @@
-const express = require('express'); //express 모듈 가져옴
-const app = express(); //새로운 express app을 만듦
-const bodyParser = require('body-parser'); //bodyparser란, 클라이언트에서 오는 정보를 서버에서 분석해서 가져올 수 있게함
+//express 모듈 가져옴
+const express = require('express');
+//새로운 express app을 만듦
+const app = express(); 
+//bodyparser란, 클라이언트에서 오는 정보를 서버에서 분석해서 가져올 수 있게함
+const bodyParser = require('body-parser'); 
 const cookieParser = require('cookie-parser');
+//multer 파일을 저장하기 위한 Dependency
+const multer = require('multer');
 const config = require('./config/key');
 const port = 5000; //서버 포트
 
@@ -25,6 +30,27 @@ mongoose.connect(config.mongoURI, {
     useFindAndModify: false,
 }).then(() => console.log('MongoDB Connected...')) //성공 시
 .catch(err => console.log('err')); //실패 시
+
+//동영상 파일을 저장하기 위한 multer 옵션!
+let storage = multer.diskStorage({
+  //파일을 올리면 uploads 폴더에 저장됨
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  //파일을 어떤 이름으로 저장할지 ex) 시간_파일이름
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}_${file.originalname}`);
+  },
+  //파일 종류 제한
+  fileFilter: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    if (ext !== '.mp4') {
+      return cb(res.status(400).end('only mp4 is allowed'), false);
+    }
+    cb(null, true);
+  }
+});
+const upload = multer({ storage: storage }).single('file');
 
 app.get('/', (req, res) => res.send('Hello World 안녕하세요.sdawd')); //루트 디렉터리에 오면 helloworld 출력
 
@@ -109,6 +135,18 @@ app.get('/api/users/logout', auth, (req, res) => {
     };
     return res.status(200).send({ success: true });
   });
+});
+
+app.post('/api/video/uploadfiles',(req, res) => {
+  upload(req, res, err => {
+    if(err) return res.json({ success: false, err});
+    //url은 uploads 폴더에 저장된 경로를 client에 보내줌
+    return res.json({ 
+      success: true, 
+      url: res.req.file.path, 
+      fileName: res.req.file.filename,
+    })
+  })
 });
 
 app.listen(port, () => console.log(`Example app listen ${port}`));
