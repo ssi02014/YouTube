@@ -35,19 +35,27 @@ const Header = (props) => {
         })
     }
 
-    return (
-        <header>
-            <h1 className="header-title"><Link to="/">MINJAE</Link></h1>
-            <ul className="header-menu">
-                {login ? 
-                <li><Link to="/" onClick={onClickHandler}>Logout</Link></li>
-                : <li><Link to="/login">Login</Link></li>}
-                {login ? 
-                    '' : <li><Link to="/register">Signup</Link></li>
-                }
-            </ul>
-        </header>
-    );
+    if(login) {
+        return (
+            <header>
+                <h1 className="header-title"><Link to="/">MINTUBE</Link></h1>
+                <ul className="header-menu">
+                    <li><Link to="/video/upload">Video</Link></li> 
+                    <li><Link to="/" onClick={onClickHandler}>Logout</Link></li>
+                </ul>
+            </header>
+        )
+    } else {
+        return (
+            <header>
+                <h1 className="header-title"><Link to="/">MINTUBE</Link></h1>
+                <ul className="header-menu">
+                    <li><Link to="/login">Login</Link></li>
+                    <li><Link to="/register">Signup</Link></li>
+                </ul>
+            </header>
+        )
+    }
 };
 
 export default withRouter(Header);

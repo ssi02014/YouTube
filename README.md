@@ -11,11 +11,15 @@
 
 <br>
 
-## 👨🏻‍💻 
+## 👨🏻‍💻 Youtube App 기능
+1. Boiler-Plate: 로그인, 회원가입, 로그아웃 기능
+2. Video Upload
 
 <br>
 
-## 📈 
+## 📈 사용 라이브러리
+1. react-dropzone: video upload할 때 사용 (VideoUploadComponent)
+2. antd 라이브러리
 
 <br>
 
@@ -38,12 +42,15 @@
 
 <br>
 
-## 🏃 
+## 🏃 Antd 4.0 부터 Icon 사용 방법 변경
 ### 1.
 ```javascript
-    //액션 타입
-    export const LOGIN_USER = "login_user";
-    export const REGISTER_USER = "register_user";
-    export const AUTH_USER = "auth_user";
+    //3.0 기존
+    import { Icon } from 'antd';
+    <Icon type='plus' style={{fontSize: '3rem'}}/>
+
+    //4.0 변경
+    import { PlusOutlined } from '@ant-design/icons';
+    <PlusOutlined type='plus' style={{fontSize: '3rem'}} />
 ```
 
