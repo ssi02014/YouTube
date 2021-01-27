@@ -43,7 +43,6 @@
 <br>
 
 ## 🏃 Antd 4.0 부터 Icon 사용 방법 변경
-### 1.
 ```javascript
     //3.0 기존
     import { Icon } from 'antd';
@@ -54,3 +53,31 @@
     <PlusOutlined type='plus' style={{fontSize: '3rem'}} />
 ```
 
+## 🏃 Input 태그에다 값을 입력하기 위한 onChange함수 정의
+### 1. useState 정의
+```javascript
+    const [videoTitle, setVideoTitle] = useState('');
+    const [videoDescription, setVideoDescription] = useState('');
+```
+
+<br>
+
+### 2. 함수 정의
+```javascript
+const onTitleChange = e => {
+        setVideoTitle(e.currentTarget.value);
+    }
+    const onDescriptionChange = e => {
+        setVideoDescription(e.currentTarget.value);
+    }
+```
+
+<br>
+
+### 3. 태그의 onChange 속성에다 정의한 함수 넣기
+```javascript
+    <Input
+        onChange={onTitleChange}
+        value={videoTitle}
+    />
+```
