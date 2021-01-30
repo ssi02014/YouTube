@@ -11,13 +11,15 @@
 4. " npm install or yarn install "을 client directory에서 입력해주세요. (프론트엔드 종속성 다운받기)
 
 <br>
+<br>
 
 ## 👨🏻‍💻 Youtube App 기능
 1. Boiler-Plate: 로그인, 회원가입, 로그아웃 기능
 2. Video Upload 
     - Server에 Video 저장
     - Server에 Thumbnail 저장
-    
+
+<br>
 <br>
 
 ## 🔍 Server 추가 라이브러리
@@ -26,6 +28,16 @@
     - fluet-ffmpeg를 설치하기 전에 ffmpeg를 설치해야됨
     - **ffmpeg 윈도우 설치 참고** : https://blog.naver.com/chandong83/222095346417
 
+<br>
+<br>
+
+## 📈 Client 추가 라이브러리
+1. react-dropzone: video upload할 때 사용 (VideoUploadComponent)
+2. antd 라이브러리
+3. multer: 노드 서버에 파일을 저장하기 위한 라이브러리
+
+<br>
+<hr>
 <br>
 
 ## 🏃 Server) static 파일들을 처리하기 위한 추가 소스 코드
@@ -36,13 +48,6 @@
         app.use('/uploads', express.static('uploads'));
     }
 ```
-
-<br>
-
-## 📈 Client 추가 라이브러리
-1. react-dropzone: video upload할 때 사용 (VideoUploadComponent)
-2. antd 라이브러리
-3. multer: 노드 서버에 파일을 저장하기 위한 라이브러리
 
 <br>
 
