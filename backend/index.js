@@ -1,12 +1,19 @@
 //express 모듈 가져옴
 const express = require('express');
+
 //새로운 express app을 만듦
 const app = express(); 
+
 //bodyparser란, 클라이언트에서 오는 정보를 서버에서 분석해서 가져올 수 있게함
 const bodyParser = require('body-parser'); 
 const cookieParser = require('cookie-parser');
+
 //multer 파일을 저장하기 위한 Dependency
 const multer = require('multer');
+
+//썸네일
+const ffmpeg = require('fluent-ffmpeg');
+
 const config = require('./config/key');
 const port = 5000; //서버 포트
 
@@ -19,6 +26,9 @@ app.use(bodyParser.json());
 //application/x-www-form-urlencoded 분석해서 가져 올 수 있게 함
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+//static한 파일들을 처리하기 위함
+app.use('/uploads', express.static('uploads'));
 
 
 //mongoose를 이용한 MongDB와 App 연결
@@ -35,7 +45,7 @@ mongoose.connect(config.mongoURI, {
 let storage = multer.diskStorage({
   //파일을 올리면 uploads 폴더에 저장됨
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    cb(null, 'uploads/videos');
   },
   //파일을 어떤 이름으로 저장할지 ex) 시간_파일이름
   filename: (req, file, cb) => {
@@ -52,31 +62,19 @@ let storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage }).single('file');
 
-app.get('/', (req, res) => res.send('Hello World 안녕하세요.sdawd')); //루트 디렉터리에 오면 helloworld 출력
-
+app.get('/', (req, res) => res.send('Hello World 안녕하세요.sdawd'));
 app.get('/api/hello', (req, res) => res.send("안녕하세요"));
 
-// 회원 가입 할 때 필요한 정보들을 client 에서 가져오면 것들은 데이터 베이스에 넣어준다.
+// 회원 가입 할 때 필요한 정보들을 client 에서 가져오면 데이터 베이스에 넣어준다.
 app.post('/api/users/register', (req, res) => {
-
-  //회원 가입 할떄 필요한 정보들을  client에서 가져오면 
-  //그것들을  데이터 베이스에 넣어준다. 
-
-  /*
-    req.body는
-    {
-      name: "minjae",
-      password: "123456"
-    } 이런 식
-  */
   const user = new User(req.body);
   
-    user.save((err, userInfo) => {
-      if (err) return res.json({ success: false, err });
-      return res.status(200).json({
-          success: true
-      });
+  user.save((err, userInfo) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).json({
+        success: true
     });
+  });
 });
 
 //로그인 
@@ -137,6 +135,7 @@ app.get('/api/users/logout', auth, (req, res) => {
   });
 });
 
+//video
 app.post('/api/video/uploadfiles',(req, res) => {
   upload(req, res, err => {
     if(err) return res.json({ success: false, err});
@@ -145,7 +144,47 @@ app.post('/api/video/uploadfiles',(req, res) => {
       success: true, 
       url: res.req.file.path, 
       fileName: res.req.file.filename,
+    });
+  });
+});
+
+app.post('/api/video/thumbnail', (req, res) => {
+
+  let filePath = '';
+  let fileDuration = '';
+
+  // 비디오 정보 가져오기
+  ffmpeg.ffprobe(req.body.url, function(err, metadata) {
+    console.log(metadata);
+    console.log(metadata.format.duration);
+    fileDuration = metadata.format.duration;
+  });
+
+  //썸네일 생성
+  ffmpeg(req.body.url)
+  .on('filenames', function(filenames) {
+    console.log('Will generate ' + filenames.join(', '));
+    console.log(filenames);
+
+    filePath = 'uploads/thumbnails/' + filenames[0];
+  })
+  .on('end', function() {
+    console.log('Sceenshots taken');
+    return res.json({ 
+      success: true,
+      url: filePath,
+      fileDuration: fileDuration,
     })
+  })
+  .on('error', function(err) {
+    console.error(err);
+    return res.json({ success: false, err });
+  })
+  .screenshots({
+    count: 3,
+    folder: 'uploads/thumbnails',
+    size: '320x240',
+    filename: 'thumbnail-%b.png',
   })
 });
 

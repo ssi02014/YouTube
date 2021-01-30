@@ -14,11 +14,28 @@
 
 ## 👨🏻‍💻 Youtube App 기능
 1. Boiler-Plate: 로그인, 회원가입, 로그아웃 기능
-2. Video Upload
+2. Video Upload 
+    - Server에 Video 저장
+    - Server에 Thumbnail 저장
+    
 <br>
 
 ## 🔍 Server 추가 라이브러리
 1. multer: 노드 서버에 파일을 저장하기 위한 Dependency
+2. fluet-ffmpeg: thumbnail 생성을 위한 라이브러리
+    - fluet-ffmpeg를 설치하기 전에 ffmpeg를 설치해야됨
+    - **ffmpeg 윈도우 설치 참고** : https://blog.naver.com/chandong83/222095346417
+
+<br>
+
+## 🏃 Server) static 파일들을 처리하기 위한 추가 소스 코드
+### static 한 파일: 이미지, css, javacript 파일 등
+```javascript
+    {
+        //index.js에 추가하기
+        app.use('/uploads', express.static('uploads'));
+    }
+```
 
 <br>
 
@@ -29,16 +46,7 @@
 
 <br>
 
-## 🔍 
-```javascript
-    {
-        
-    }
-```
-
-<br>
-
-## 🏃 Antd 4.0 부터 Icon 사용 방법 변경
+## 🏃 Client) Antd 4.0 부터 Icon 사용 방법 변경
 ```javascript
     //3.0 기존
     import { Icon } from 'antd';
@@ -51,7 +59,7 @@
 
 <br>
 
-## 🏃 Input 태그에다 값을 입력하기 위한 onChange함수 정의
+## 🏃 Client) Input 태그에다 값을 입력하기 위한 방법(순서)
 ### 1. useState 정의
 ```javascript
     const [videoTitle, setVideoTitle] = useState('');
@@ -62,7 +70,7 @@
 
 ### 2. 함수 정의
 ```javascript
-const onTitleChange = e => {
+    const onTitleChange = e => {
         setVideoTitle(e.currentTarget.value);
     }
     const onDescriptionChange = e => {

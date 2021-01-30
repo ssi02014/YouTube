@@ -25,6 +25,10 @@ const VideoUploadComponent = () => {
     const [videoPrivate, setVideoPrivate] = useState(0);
     const [videoCategory, setVideoCategory] = useState("Film & Animation");
 
+    const [filePath, setFilePath] = useState('');
+    const [fileDuration, setFileDuration] = useState('');
+    const [fileThumbnail, setFileThumbnail] = useState('');
+
     //input에 입력하기 위해 change 함수를 꼭 만들어줘야됨
     const onTitleChange = e => {
         setVideoTitle(e.currentTarget.value);
@@ -41,7 +45,7 @@ const VideoUploadComponent = () => {
 
     //DropZone
     const onDrop = (files) => {
-        const formData = new FormData;
+        const formData = new FormData();
         const config = {
             header: {'content-type': 'multipart/form-data'}
         }
@@ -53,6 +57,25 @@ const VideoUploadComponent = () => {
             .then(response => {
                 if(response.data.success) {
                     console.log(response.data);
+                    
+                    let variable = {
+                        url: response.data.url,
+                        fileName: response.data.fileName,
+                    }
+                    setFilePath(response.data.url);
+                    
+                    //variable을 보내줌
+                    axios.post('/api/video/thumbnail', variable)
+                        .then(response => {
+                            if(response.data.success) {
+                                console.log(response.data);
+
+                                setFileDuration(response.data.fileDuration);
+                                setFileThumbnail(response.data.url);
+                            } else {
+                                alert('썸네일 생성에 실패하였습니다.');
+                            }
+                        })
                 } else {
                     alert('비디오 업로드를 실패했습니다.');
                 }
@@ -84,10 +107,15 @@ const VideoUploadComponent = () => {
                         )}
 
                     </Dropzone>
-                    {/* Thumbnail */}   
-                    <div>
-                        <img src="" alt=""/>
-                    </div>
+
+                    {/* Thumbnail */}
+                        
+                    {fileThumbnail && 
+                        <div style={{ marginLeft: '20px'}}>
+                            {/* 서버가 5000포트라 꼭 앞에다 넣어줘야함  */}
+                            <img src={`http://localhost:5000/${fileThumbnail}`} alt="thumbnail"/>
+                        </div>
+                    }
                 </div>
                 <br />
                 <br />
