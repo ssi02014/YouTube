@@ -221,6 +221,16 @@ app.post('/api/video/uploadVideo', function (req, res) {
     });
   });
 });
+app.get('/api/video/getVideos', function (req, res) {
+  //비디오를 db에서 가져오기
+  Video.find().populate('writer').exec(function (err, videos) {
+    if (err) return res.status(400).send(err);
+    return res.status(200).json({
+      success: true,
+      videos: videos
+    });
+  });
+});
 app.listen(port, function () {
   return console.log("Example app listen ".concat(port));
 });

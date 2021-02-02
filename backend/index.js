@@ -186,4 +186,14 @@ app.post('/api/video/uploadVideo', (req, res) => {
   });
 });
 
+
+app.get('/api/video/getVideos', (req, res) => {
+  //비디오를 db에서 가져오기
+  Video.find().populate('writer').exec((err, videos) => {
+    if(err) return res.status(400).send(err);
+    return res.status(200).json({ success: true, videos})
+  })
+  
+});
+
 app.listen(port, () => console.log(`Example app listen ${port}`));

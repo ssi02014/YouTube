@@ -1,36 +1,74 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+import moment from 'moment';
+import '../../../scss/Duration.scss'
+import {Typography, Card, Row, Col, Avatar } from 'antd'; 
 
-const HomeComponent = (props) => {
+const { Title } = Typography;
+const { Meta } = Card;
+
+const HomeComponent = () => {
+
+    const [video, setVideo] = useState([]);
 
     //홈페이지 들어오면 useEffect를 실행 1번만
     useEffect(() => {
-        axios.get('/api/hello')
-        .then(response => console.log(response.data));
+        axios.get('/api/video/getVideos')
+            .then( response => {
+                if (response.data.success) {
+                    console.log(response.data);
+                    setVideo(response.data.videos);
+                } else {
+                    alert('비디오 정보를 가져오는게 실패하였습니다.')
+                }
+            })
     }, []);
 
-    // const onClickHandler = () => {
-    //     axios.get('/api/users/logout')
-    //     .then(response => {
+    const renderCards = video.map((video, index) => {
 
-    //         console.log(response);
+        const minutes = Math.floor(video.duration / 60);
+        const seconds = Math.floor(video.duration - minutes * 60);
 
-    //         if (response.data.success) {
-    //             props.history.push('/login');
-    //         } else {
-    //             alert("로그아웃하는데 실패하였습니다.");
-    //         }
-    //     })
-    // }
+        return (
+            <Col key={index} lg={6} md={8} xs={24}>
+                <Link to={`/video/post/${video._id}`}>
+                    <div style={{ position: 'relative' }}>
+                        <img 
+                            style={{width: '100%'}}
+                            src={`http://localhost:5000/${video.thumbnail}`} 
+                            alt="thumbnail"
+                        />
+                        <div className="duration">
+                            <span>{minutes} : {seconds}</span>
+                        </div>
+                    </div>
+                </Link>
+                <br />
+                <Meta
+                    avatar = { <Avatar src={video.writer.image} /> }
+                    title = {video.title}
+                    description = ""
+                />
+                <span>{video.writer.name}</span>
+                <br/>
+                <span style={{ marginLeft: '3rem' }}>
+                    {video.views} views <span> - </span> {moment(video.createdAt).format("MMM Do YY")}
+                </span>
+            </Col>
+        )});
 
     return (
         <>
             <div style={{
-                display: 'flex', justifyContent: 'center', alignItems: 'center', 
-                width: '100%', height: '100vh'
+                width: '90%',
+                margin: '0 auto',
             }}>
-                <h2>시작 페이지</h2>
+                <Title level={2}> Recommended</Title>
+                <hr />
+                <Row gutter={[32, 16]}>
+                    {renderCards}
+                </Row>
             </div>
         </>
     );
