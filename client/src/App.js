@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import VideoUploadPage from './pages/VideoUploadPage';
+import VideoDetailPage from './pages/VideoDetailPage';
 import Auth from './hoc/auth';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
             <Route path="/login" component={Auth(LoginPage, false)}></Route>
             <Route path="/register" component={Auth(RegisterPage, false)}></Route>
             <Route path="/video/upload" component={Auth(VideoUploadPage, true)}></Route>
+            <Route path="/video/:videoId" component={Auth(VideoDetailPage, null)}></Route>
           </Switch>
       </Router>
     </>

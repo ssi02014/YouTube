@@ -231,6 +231,17 @@ app.get('/api/video/getVideos', function (req, res) {
     });
   });
 });
+app.post('/api/video/getVideoDetail', function (req, res) {
+  Video.findOne({
+    '_id': req.body.videoId
+  }).populate('writer').exec(function (err, videoDetail) {
+    if (err) return res.status(400).send(err);
+    return res.status(200).json({
+      success: true,
+      videoDetail: videoDetail
+    });
+  });
+});
 app.listen(port, function () {
   return console.log("Example app listen ".concat(port));
 });
