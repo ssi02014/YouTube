@@ -1,35 +1,26 @@
-//express 모듈 가져옴
-const express = require('express');
+const express = require('express'); //express 모듈 가져옴
+const app = express(); //새로운 express app을 만듦
 
-//새로운 express app을 만듦
-const app = express(); 
-
-//bodyparser란, 클라이언트에서 오는 정보를 서버에서 분석해서 가져올 수 있게함
 const bodyParser = require('body-parser'); 
 const cookieParser = require('cookie-parser');
 
-//multer 파일을 저장하기 위한 Dependency
-const multer = require('multer');
-
-//썸네일
-const ffmpeg = require('fluent-ffmpeg');
+const multer = require('multer'); //video 파일을 저장하기 위한 Dependency
+const ffmpeg = require('fluent-ffmpeg'); //썸네일
 
 const config = require('./config/key');
-const port = 5000; //서버 포트
 
-const { auth } = require("./middleware/auth"); //auth 미들웨어를 가져옴
-const { User } = require("./models/User"); // User 모델을 가져옴
+const { auth } = require("./middleware/auth");
+const { User } = require("./models/User"); 
+const { Video } = require("./models/Video"); 
 
-//application/json 분석해서 가져 올 수 있게 함
-app.use(bodyParser.json());
+app.use(bodyParser.json()); //application/json 분석해서 가져 올 수 있게 함
 
-//application/x-www-form-urlencoded 분석해서 가져 올 수 있게 함
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-//static한 파일들을 처리하기 위함
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static('uploads')); //static한 파일들을 처리하기 위함
 
+const port = 5000; //서버 포트
 
 //mongoose를 이용한 MongDB와 App 연결
 const mongoose = require('mongoose');
@@ -38,8 +29,8 @@ mongoose.connect(config.mongoURI, {
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false,
-}).then(() => console.log('MongoDB Connected...')) //성공 시
-.catch(err => console.log('err')); //실패 시
+}).then(() => console.log('MongoDB Connected...')) 
+.catch(err => console.log('err'));
 
 //동영상 파일을 저장하기 위한 multer 옵션!
 let storage = multer.diskStorage({
@@ -65,7 +56,7 @@ const upload = multer({ storage: storage }).single('file');
 app.get('/', (req, res) => res.send('Hello World 안녕하세요.sdawd'));
 app.get('/api/hello', (req, res) => res.send("안녕하세요"));
 
-// 회원 가입 할 때 필요한 정보들을 client 에서 가져오면 데이터 베이스에 넣어준다.
+//회원가입
 app.post('/api/users/register', (req, res) => {
   const user = new User(req.body);
   
@@ -80,7 +71,7 @@ app.post('/api/users/register', (req, res) => {
 //로그인 
 app.post('/api/users/login', (req, res) => {
 
-  //1. 요청된 이메일을 데이터베이스에서 있는지 찾는다.
+  //1. 요청된 이메일을 데이터베이스에 있는지 찾는다.
   User.findOne({ email: req.body.email }, (err, user) => {
     if (!user) {
         return res.json({
@@ -128,9 +119,7 @@ app.get('/api/users/logout', auth, (req, res) => {
     { _id: req.user._id },
     { token: "" },
     (err, user) => {
-    if(err) {
-      return res.json({ success: false, err });
-    };
+    if(err) return res.json({ success: false, err });
     return res.status(200).send({ success: true });
   });
 });
@@ -181,11 +170,20 @@ app.post('/api/video/thumbnail', (req, res) => {
     return res.json({ success: false, err });
   })
   .screenshots({
-    count: 3,
+    count: 2,
     folder: 'uploads/thumbnails',
     size: '320x240',
     filename: 'thumbnail-%b.png',
   })
+});
+
+app.post('/api/video/uploadVideo', (req, res) => {
+  //비디오 정보 저장
+  const video = new Video(req.body)
+  video.save((err, doc) => {
+    if(err) return res.json({ success: false });
+    else return res.status(200).json({ success: true });
+  });
 });
 
 app.listen(port, () => console.log(`Example app listen ${port}`));

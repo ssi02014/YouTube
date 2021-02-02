@@ -21,13 +21,14 @@ const Header = (props) => {
     }, []);
 
     const onClickHandler = () => {
+        localStorage.removeItem('userID');
+        
         axios.get('/api/users/logout')
         .then(response => {
             console.log(response);
 
             if (response.data.success) {
                 setLogin(!login);
-                localStorage.removeItem('userID');
                 props.history.push('/');
             } else {
                 alert("로그아웃하는데 실패하였습니다.");

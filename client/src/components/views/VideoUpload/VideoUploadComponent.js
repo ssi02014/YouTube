@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import {Typography, Button, Form, Message, Input } from 'antd'; 
+import {Typography, Button, Form, Input, message } from 'antd'; 
 import { PlusOutlined } from '@ant-design/icons';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
+import {useSelector} from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 const { TextArea } = Input
 const { Title } = Typography;
@@ -18,8 +20,8 @@ const CategoryOptions = [
     { value: 3, label: "Pets & Animals"},
 ]
 
-const VideoUploadComponent = () => {
-
+const VideoUploadComponent = ({history}) => {
+    const user = useSelector(state => state.user);
     const [videoTitle, setVideoTitle] = useState('');
     const [videoDescription, setVideoDescription] = useState('');
     const [videoPrivate, setVideoPrivate] = useState(0);
@@ -78,6 +80,33 @@ const VideoUploadComponent = () => {
                         })
                 } else {
                     alert('비디오 업로드를 실패했습니다.');
+                }
+            })
+    }
+
+    const onSubmit = e => {
+        e.preventDefault();
+
+        const variable = {
+            writer: user.userData._id,
+            title: videoTitle,
+            description: videoDescription,
+            privacy: videoPrivate,
+            filePath: filePath,
+            category: videoCategory,
+            duration: fileDuration,
+            thumbnail: fileThumbnail,
+        }
+
+        axios.post('/api/video/uploadVideo', variable)
+            .then(response => {
+                if (response.data.success) {
+                    message.success('성공적으로 업로드를 하였습니다.');
+                    setTimeout(() => {
+                        history.push('/');
+                    }, 3000)
+                } else {
+                    alert("비디오 업로드에 실패 했습니다.");
                 }
             })
     }
@@ -152,7 +181,7 @@ const VideoUploadComponent = () => {
                 <br />
                 <br />
 
-                <Button type="primary" size="large" onClick>
+                <Button type="primary" size="large" onClick={onSubmit}>
                     Submit
                 </Button>
             </Form>
@@ -160,4 +189,4 @@ const VideoUploadComponent = () => {
     );
 };
 
-export default VideoUploadComponent;
+export default withRouter(VideoUploadComponent);

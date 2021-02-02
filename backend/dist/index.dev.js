@@ -1,42 +1,41 @@
 "use strict";
 
-//express 모듈 가져옴
-var express = require('express'); //새로운 express app을 만듦
+var express = require('express'); //express 모듈 가져옴
 
 
-var app = express(); //bodyparser란, 클라이언트에서 오는 정보를 서버에서 분석해서 가져올 수 있게함
+var app = express(); //새로운 express app을 만듦
 
 var bodyParser = require('body-parser');
 
-var cookieParser = require('cookie-parser'); //multer 파일을 저장하기 위한 Dependency
+var cookieParser = require('cookie-parser');
+
+var multer = require('multer'); //video 파일을 저장하기 위한 Dependency
 
 
-var multer = require('multer'); //썸네일
+var ffmpeg = require('fluent-ffmpeg'); //썸네일
 
-
-var ffmpeg = require('fluent-ffmpeg');
 
 var config = require('./config/key');
 
-var port = 5000; //서버 포트
-
 var _require = require("./middleware/auth"),
-    auth = _require.auth; //auth 미들웨어를 가져옴
-
+    auth = _require.auth;
 
 var _require2 = require("./models/User"),
-    User = _require2.User; // User 모델을 가져옴
-//application/json 분석해서 가져 올 수 있게 함
+    User = _require2.User;
 
+var _require3 = require("./models/Video"),
+    Video = _require3.Video;
 
-app.use(bodyParser.json()); //application/x-www-form-urlencoded 분석해서 가져 올 수 있게 함
+app.use(bodyParser.json()); //application/json 분석해서 가져 올 수 있게 함
 
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(cookieParser()); //static한 파일들을 처리하기 위함
+app.use(cookieParser());
+app.use('/uploads', express["static"]('uploads')); //static한 파일들을 처리하기 위함
 
-app.use('/uploads', express["static"]('uploads')); //mongoose를 이용한 MongDB와 App 연결
+var port = 5000; //서버 포트
+//mongoose를 이용한 MongDB와 App 연결
 
 var mongoose = require('mongoose');
 
@@ -47,11 +46,9 @@ mongoose.connect(config.mongoURI, {
   useFindAndModify: false
 }).then(function () {
   return console.log('MongoDB Connected...');
-}) //성공 시
-["catch"](function (err) {
+})["catch"](function (err) {
   return console.log('err');
-}); //실패 시
-//동영상 파일을 저장하기 위한 multer 옵션!
+}); //동영상 파일을 저장하기 위한 multer 옵션!
 
 var storage = multer.diskStorage({
   //파일을 올리면 uploads 폴더에 저장됨
@@ -81,7 +78,7 @@ app.get('/', function (req, res) {
 });
 app.get('/api/hello', function (req, res) {
   return res.send("안녕하세요");
-}); // 회원 가입 할 때 필요한 정보들을 client 에서 가져오면 데이터 베이스에 넣어준다.
+}); //회원가입
 
 app.post('/api/users/register', function (req, res) {
   var user = new User(req.body);
@@ -97,7 +94,7 @@ app.post('/api/users/register', function (req, res) {
 }); //로그인 
 
 app.post('/api/users/login', function (req, res) {
-  //1. 요청된 이메일을 데이터베이스에서 있는지 찾는다.
+  //1. 요청된 이메일을 데이터베이스에 있는지 찾는다.
   User.findOne({
     email: req.body.email
   }, function (err, user) {
@@ -155,14 +152,10 @@ app.get('/api/users/logout', auth, function (req, res) {
   }, {
     token: ""
   }, function (err, user) {
-    if (err) {
-      return res.json({
-        success: false,
-        err: err
-      });
-    }
-
-    ;
+    if (err) return res.json({
+      success: false,
+      err: err
+    });
     return res.status(200).send({
       success: true
     });
@@ -211,10 +204,21 @@ app.post('/api/video/thumbnail', function (req, res) {
       err: err
     });
   }).screenshots({
-    count: 3,
+    count: 2,
     folder: 'uploads/thumbnails',
     size: '320x240',
     filename: 'thumbnail-%b.png'
+  });
+});
+app.post('/api/video/uploadVideo', function (req, res) {
+  //비디오 정보 저장
+  var video = new Video(req.body);
+  video.save(function (err, doc) {
+    if (err) return res.json({
+      success: false
+    });else return res.status(200).json({
+      success: true
+    });
   });
 });
 app.listen(port, function () {
