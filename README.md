@@ -18,6 +18,7 @@
 2. Video Upload 
     - Server에 Video 저장
     - Server에 Thumbnail 저장
+3. Video Detail Page
 
 <br>
 <br>
@@ -92,3 +93,19 @@
         value={videoTitle}
     />
 ```
+
+## 🏃 Client) router의 match 객체
+### match 객체를 받아오려면 꼭! withRouter를 import 해야함
+```javascript
+    import { withRouter } from 'react-router-dom';
+
+    const VideoUpladComponent = () => {
+        return ( 
+            //소스코드
+        );
+    }
+    
+    //코드 마지막에 withRouter안에다 export할 컴포넌트 추가하기
+    export default withRouter(VideoUploadComponent);
+```
+
