@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Row, Col, List, Avatar} from 'antd';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import SideVideo from './Section/SideVideo';
 
 const VideoDetailComponent = (props) => {
     const videoId = props.match.params.videoId;
@@ -48,7 +49,7 @@ const VideoDetailComponent = (props) => {
                         </div>
                     </Col>
                     <Col lg={6} xs={24}>
-    
+                        <SideVideo></SideVideo>
                     </Col>
                 </Row>  
             </>

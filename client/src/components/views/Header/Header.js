@@ -9,12 +9,6 @@ const Header = (props) => {
     const [login, setLogin] = useState(false);
 
     useEffect((login) => {
-        // axios.get('/api/users/auth')
-        // .then(response => {
-        //     if(response.data.isAuth) {
-        //         setLogin(!login);
-        //     }
-        // })
         if(localStorage.getItem('userID')) {
             setLogin(!login);
         }
