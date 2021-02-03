@@ -28,13 +28,13 @@ const SideVideo = () => {
                 key={index}
                 style={{ display: 'flex', margin: '2rem 0', padding: '0 1rem',}}
             >
-                <div style={{ width: '40%', height: '100%'}}>
+                <div style={{ width: '50%', height: '100%'}}>
                     <a href={`/video/${video._id}`}>
                         <img style={{ width: '100%', height: '100%'}} src={`http://localhost:5000/${video.thumbnail}`} alt="썸네일"/>
                     </a>
                 </div>
 
-                <div style={{width: '50%', marginLeft: '0.3rem'}}>
+                <div style={{width: '30%', marginLeft: '0.3rem'}}>
                     <a href={`/video/${video._id}`} style={{ color: 'gray'}}>
                         <span style={{ fontSize: '1rem', color: 'black'}}>{video.title}</span><br />
                         <span>{video.writer.name}</span><br />

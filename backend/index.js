@@ -12,6 +12,7 @@ const config = require('./config/key');
 const { auth } = require("./middleware/auth");
 const { User } = require("./models/User"); 
 const { Video } = require("./models/Video"); 
+const { Subscriber } = require("./models/Subscriber"); 
 
 app.use(bodyParser.json()); //application/json 분석해서 가져 올 수 있게 함
 
@@ -190,7 +191,7 @@ app.post('/api/video/uploadVideo', (req, res) => {
 app.get('/api/video/getVideos', (req, res) => {
   //비디오를 db에서 가져오기
   Video.find().populate('writer').exec((err, videos) => {
-    if(err) return res.status(400).send(err);
+    if (err) return res.status(400).send(err);
     return res.status(200).json({ success: true, videos})
   })
 });
@@ -198,9 +199,30 @@ app.get('/api/video/getVideos', (req, res) => {
 app.post('/api/video/getVideoDetail', (req, res) => {
   Video.findOne({'_id': req.body.videoId})
     .populate('writer').exec((err, videoDetail) => {
-      if(err) return res.status(400).send(err);
+      if (err) return res.status(400).send(err);
       return res.status(200).json({ success: true, videoDetail })
     })
+});
+
+app.post('/api/subscribe/subscribeNumber', (req, res) => {
+  Subscriber.find({ 'userTo': req.body.userTo })
+  .exec((err, subscribe) => {
+    if (err) return res.status(400).send(err);
+    return res.status(200).json({ success: true, subscribeNumber: subscribe.length })
+  })
+});
+
+app.post('/api/subscribe/subscribed', (req, res) => {
+  Subscriber.find({ 'userTo': req.body.userTo, 'userFrom': req.body.userFrom })
+  .exec((err, subscribe) => {
+    if (err) return res.status(400).send(err);
+
+    let result = false
+    if (subscribe.length !== 0) {
+      result = true
+    }
+    return res.status(200).json({ success: true, subscribed: result })
+  })
 });
 
 app.listen(port, () => console.log(`Example app listen ${port}`));

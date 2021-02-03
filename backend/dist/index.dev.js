@@ -26,6 +26,9 @@ var _require2 = require("./models/User"),
 var _require3 = require("./models/Video"),
     Video = _require3.Video;
 
+var _require4 = require("./models/Subscriber"),
+    Subscriber = _require4.Subscriber;
+
 app.use(bodyParser.json()); //application/json 분석해서 가져 올 수 있게 함
 
 app.use(bodyParser.urlencoded({
@@ -239,6 +242,35 @@ app.post('/api/video/getVideoDetail', function (req, res) {
     return res.status(200).json({
       success: true,
       videoDetail: videoDetail
+    });
+  });
+});
+app.post('/api/subscribe/subscribeNumber', function (req, res) {
+  Subscriber.find({
+    'userTo': req.body.userTo
+  }).exec(function (err, subscribe) {
+    if (err) return res.status(400).send(err);
+    return res.status(200).json({
+      success: true,
+      subscribeNumber: subscribe.length
+    });
+  });
+});
+app.post('/api/subscribe/subscribed', function (req, res) {
+  Subscriber.find({
+    'userTo': req.body.userTo,
+    'userFrom': req.body.userFrom
+  }).exec(function (err, subscribe) {
+    if (err) return res.status(400).send(err);
+    var result = false;
+
+    if (subscribe.length !== 0) {
+      result = true;
+    }
+
+    return res.status(200).json({
+      success: true,
+      subscribed: result
     });
   });
 });

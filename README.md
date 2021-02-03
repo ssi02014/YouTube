@@ -19,6 +19,8 @@
     - Server에 Video 저장
     - Server에 Thumbnail 저장
 3. Video Detail Page
+    - Side Video Section
+4. 구독하기 및 구독자 수 확인
 
 <br>
 <br>
