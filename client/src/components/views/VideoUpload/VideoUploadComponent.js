@@ -48,7 +48,7 @@ const VideoUploadComponent = (props) => {
 
     //DropZone
     const onDrop = (files) => {
-        const formData = new FormData();
+        const formData = new FormData;
         const config = {
             header: {'content-type': 'multipart/form-data'}
         }

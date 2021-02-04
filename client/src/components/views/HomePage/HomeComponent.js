@@ -63,6 +63,7 @@ const HomeComponent = () => {
             <div style={{
                 width: '90%',
                 margin: '0 auto',
+                padding: '30px'
             }}>
                 <Title level={2}> Recommended</Title>
                 <hr />

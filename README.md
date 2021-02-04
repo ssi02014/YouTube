@@ -20,7 +20,8 @@
     - Server에 Thumbnail 저장
 3. Video Detail Page
     - Side Video Section
-4. 구독하기 및 구독자 수 확인
+4. 회원 구독하기 
+    - Subscribe Page에서 구독한 회원의 Video만 나오게 하기
 
 <br>
 <br>

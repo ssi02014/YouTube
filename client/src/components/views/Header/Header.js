@@ -8,13 +8,20 @@ import '../../../scss/Header.scss';
 const Header = (props) => {
     const [login, setLogin] = useState(false);
 
-    useEffect((login) => {
+    useEffect(() => {
         if(localStorage.getItem('userID')) {
-            setLogin(!login);
+            setLogin(true);
+        } else {
+            axios.get('/api/users/logout')
+                .then(response => {
+                    if (response.data.success) {
+                        setLogin(false);
+                    }
+                })
         }
     }, []);
 
-    const onClickHandler = () => {
+    const onClickLogoutHandler = () => {
         localStorage.removeItem('userID');
         
         axios.get('/api/users/logout')
@@ -30,27 +37,29 @@ const Header = (props) => {
         })
     }
 
-    if(login) {
+    
         return (
             <header>
-                <h1 className="header-title"><Link to="/">MINTUBE</Link></h1>
-                <ul className="header-menu">
-                    <li><Link to="/video/upload">Video</Link></li> 
-                    <li><Link to="/" onClick={onClickHandler}>Logout</Link></li>
-                </ul>
+                {login ? (
+                    <>
+                        <h1 className="header-title"><Link to="/">MINTUBE</Link></h1>
+                        <ul className="header-menu">
+                            <li><Link to="/video/upload">VideoUpload</Link></li> 
+                            <li><Link to="/subscription">Subscription</Link></li> 
+                            <li><Link to="/" onClick={onClickLogoutHandler}>Logout</Link></li>
+                        </ul>
+                    </>
+                    ) :
+                    <>
+                        <h1 className="header-title"><Link to="/">MINTUBE</Link></h1>
+                        <ul className="header-menu">
+                            <li><Link to="/login">Login</Link></li>
+                            <li><Link to="/register">Signup</Link></li>
+                        </ul>
+                    </>
+                }
             </header>
         )
-    } else {
-        return (
-            <header>
-                <h1 className="header-title"><Link to="/">MINTUBE</Link></h1>
-                <ul className="header-menu">
-                    <li><Link to="/login">Login</Link></li>
-                    <li><Link to="/register">Signup</Link></li>
-                </ul>
-            </header>
-        )
-    }
 };
 
 export default withRouter(Header);
