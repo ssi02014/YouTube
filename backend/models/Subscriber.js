@@ -14,7 +14,7 @@ const subscriberSchema = mongoose.Schema({
 }, { timestamps: true });
 
 //스키마를 Model로 감싸줌: model('모델의이름', 스키마 이름)
-const Subscriber = mongoose.model('Subscriber', subScriberSchema);
+const Subscriber = mongoose.model('Subscriber', subscriberSchema);
 
 //재사용하기 위해 exports
 module.exports= { Subscriber };

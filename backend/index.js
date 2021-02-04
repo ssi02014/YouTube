@@ -225,4 +225,21 @@ app.post('/api/subscribe/subscribed', (req, res) => {
   })
 });
 
+app.post('/api/subscribe/subscribe', (req, res) => {
+  const subscribe = new Subscriber(req.body);
+
+  subscribe.save((err, doc) => {
+    if (err) return res.json({ success: false, err});
+    return res.status(200).json({ success: true, doc });
+  })
+});
+
+app.post('/api/subscribe/unSubscribe', (req, res) => {
+  Subscriber.findOneAndDelete({ 'userTo': req.body.userTo, 'userFrom': req.body.userFrom })
+  .exec((err, doc) => {
+    if (err) return res.status(400).send(err);
+    return res.status(200).json({ success: true, doc });
+  })
+});
+
 app.listen(port, () => console.log(`Example app listen ${port}`));

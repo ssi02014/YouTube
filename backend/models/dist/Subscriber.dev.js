@@ -17,7 +17,7 @@ var subscriberSchema = mongoose.Schema({
   timestamps: true
 }); //스키마를 Model로 감싸줌: model('모델의이름', 스키마 이름)
 
-var Subscriber = mongoose.model('Subscriber', subScriberSchema); //재사용하기 위해 exports
+var Subscriber = mongoose.model('Subscriber', subscriberSchema); //재사용하기 위해 exports
 
 module.exports = {
   Subscriber: Subscriber

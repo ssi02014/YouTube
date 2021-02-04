@@ -274,6 +274,31 @@ app.post('/api/subscribe/subscribed', function (req, res) {
     });
   });
 });
+app.post('/api/subscribe/subscribe', function (req, res) {
+  var subscribe = new Subscriber(req.body);
+  subscribe.save(function (err, doc) {
+    if (err) return res.json({
+      success: false,
+      err: err
+    });
+    return res.status(200).json({
+      success: true,
+      doc: doc
+    });
+  });
+});
+app.post('/api/subscribe/unSubscribe', function (req, res) {
+  Subscriber.findOneAndDelete({
+    'userTo': req.body.userTo,
+    'userFrom': req.body.userFrom
+  }).exec(function (err, doc) {
+    if (err) return res.status(400).send(err);
+    return res.status(200).json({
+      success: true,
+      doc: doc
+    });
+  });
+});
 app.listen(port, function () {
   return console.log("Example app listen ".concat(port));
 });

@@ -34,6 +34,36 @@ const Subscribe = (props) => {
             })
     }, [])
 
+    const onSubscribe = () => {
+
+        let subscribedVariable = {
+            userTo: props.userTo,
+            userFrom: props.userFrom,
+        }
+
+        if (subscribed) {
+            axios.post('/api/subscribe/unSubscribe', subscribedVariable)
+                .then(response => {
+                    if (response.data.success) {
+                        setSubscribeNumber(subscribeNumber - 1);
+                        setSubscribed(!subscribed);
+                    } else {
+                        alert('구독 취소 하는데 실패하였습니다.')
+                    }
+                })
+        } else {
+            axios.post('/api/subscribe/subscribe', subscribedVariable)
+                .then(response => {
+                    if (response.data.success) {
+                        setSubscribeNumber(subscribeNumber + 1);
+                        setSubscribed(!subscribed);
+                    } else {
+                        alert('구독 하는데 실패하였습니다.')
+                    }
+                })
+        }
+    }
+
     return (
         <>
             <button
@@ -49,7 +79,7 @@ const Subscribe = (props) => {
                     outline: 'none',
                     cursor: 'pointer',
                 }}
-                onClick
+                onClick={onSubscribe}
             >
                 {subscribeNumber} {subscribed ? 'Subscribed' : 'Subscribe'}
             </button>
