@@ -14,14 +14,17 @@
 <br>
 
 ## 👨🏻‍💻 Youtube App 기능
-1. Boiler-Plate: 로그인, 회원가입, 로그아웃 기능
+1. Boiler-Plate: Login, Register, Logout
 2. Video Upload 
-    - Server에 Video 저장
-    - Server에 Thumbnail 저장
+    - 서버에 비디오 저장
+    - 서버에 비디오 썸네일 저장
 3. Video Detail Page
-    - Side Video Section
-4. 회원 구독하기 
-    - Subscribe Page에서 구독한 회원의 Video만 나오게 하기
+    - 비디오 시청
+    - 사이드에 비디오 Section
+4. User Subscribe 
+    - 구독 페이지에서는 구독한 회원의 Video만 나오게 하기
+5. Comment  
+    - 대댓글 기능
 
 <br>
 <br>

@@ -39,9 +39,11 @@ const VideoDetailComponent = (props) => {
     }
     
     if(videoDetail.writer) {
-
         const subscribedButton = videoDetail.writer._id !== localStorage.getItem('userID') 
-            && <Subscribe userTo={videoDetail.writer._id} userFrom={localStorage.getItem('userID')}/>
+            && <Subscribe 
+                    userTo= {videoDetail.writer._id} 
+                    userFrom={localStorage.getItem('userID')}
+                />
         return (
             <>
                 <Row gutter={[16, 16]}>
@@ -68,7 +70,7 @@ const VideoDetailComponent = (props) => {
                             <Comment 
                                 refreshFunction={refreshFunction}
                                 commentList={comments}
-                                postId={videoId} 
+                                postId={videoDetail._id} 
                             />
                         </div>
                     </Col>

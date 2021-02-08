@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Comment, Avatar, Button, Input } from 'antd';
+import { Comment, Avatar, Input } from 'antd';
 import { useSelector} from 'react-redux';
 import axios from 'axios';
-
-const { TextArea } = Input;
 
 const SingleComment = ({ comment, postId, refreshFunction }) => {
     const user = useSelector(state => state.user);

@@ -3,10 +3,11 @@ import axios from 'axios';
 import { useSelector} from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import SingleComment from './SingleComment';
+import ReplyComment from './ReplyComment';
 
 const Comment = ({ postId, commentList, refreshFunction }) => {
-    const videoId = postId;
     const user = useSelector(state => state.user);
+
     const [commentValue, setCommentValue] = useState("");
 
     const handleClick = e => {
@@ -20,7 +21,7 @@ const Comment = ({ postId, commentList, refreshFunction }) => {
         const variables = {
             content: commentValue,
             writer: user.userData._id,
-            postId: videoId
+            postId: postId
         }
 
         axios.post('/api/comment/saveComment', variables)
@@ -44,12 +45,20 @@ const Comment = ({ postId, commentList, refreshFunction }) => {
             
             {commentList && commentList.map((comment, index) => (
                 (!comment.responseTo &&
-                    <SingleComment 
-                        refreshFunction={refreshFunction}
-                        key={index} 
-                        comment={comment} 
-                        postId={videoId}
-                    />
+                    <>
+                        <SingleComment 
+                            refreshFunction={refreshFunction}
+                            key={index} 
+                            comment={comment} 
+                            postId={postId}
+                        />
+                        <ReplyComment 
+                            refreshFunction={refreshFunction}
+                            parentCommentId={comment._id} 
+                            commentList={commentList} 
+                            postId={postId} 
+                        />
+                    </>
                 )
             ))}
             {/* Root Comment Form */}
