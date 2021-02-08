@@ -1,26 +1,32 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { Comment, Avatar, Button, Input } from 'antd';
 import { useSelector} from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import SingleComment from './SingleComment';
+import axios from 'axios';
 
-const Comment = ({ postId, commentList, refreshFunction }) => {
-    const videoId = postId;
+const { TextArea } = Input;
+
+const SingleComment = ({ comment, postId, refreshFunction }) => {
     const user = useSelector(state => state.user);
-    const [commentValue, setCommentValue] = useState("");
+    const [openReply, setOpenReply] = useState(false);
+    const [commentValue, setcommentValue] = useState("");
 
-    const handleClick = e => {
-        setCommentValue(e.currentTarget.value);
+    const onClickReplyOpen = () => {
+        setOpenReply(!openReply);
     }
 
+    const onHandleChange = e => {
+        setcommentValue(e.currentTarget.value);
+    }
+    
     const onSubmit = e => {
         e.preventDefault();
-        setCommentValue("");
+        setcommentValue("");
 
         const variables = {
             content: commentValue,
             writer: user.userData._id,
-            postId: videoId
+            postId: postId,
+            responseTo: comment._id,
         }
 
         axios.post('/api/comment/saveComment', variables)
@@ -33,31 +39,24 @@ const Comment = ({ postId, commentList, refreshFunction }) => {
             }
         })
     }
+    const actions = [
+        <span onClick={onClickReplyOpen} key="comment-basic-reply-to">Reply to</span>
+    ]
     
     return (
         <div>
-            <br />
-            <p>Replies</p>
-            <hr />
+            <Comment
+                actions={actions}
+                author={comment.writer.name}
+                avatar={<Avatar src={comment.writer.image} alt />}
+                content={<p>{comment.content}</p>}
+            />
 
-            {/* Comment List */}
-            
-            {commentList && commentList.map((comment, index) => (
-                (!comment.responseTo &&
-                    <SingleComment 
-                        refreshFunction={refreshFunction}
-                        key={index} 
-                        comment={comment} 
-                        postId={videoId}
-                    />
-                )
-            ))}
-            {/* Root Comment Form */}
-
+        {openReply &&
             <form style ={{ display: 'flex', marginTop: '10px'}} onSubmit={onSubmit}>
                 <textarea 
                     style={{width: '100%', borderRadius: '5px'}} 
-                    onChange={handleClick}
+                    onChange={onHandleChange}
                     value={commentValue}
                     placeholder="코멘트 작성하세요."
                 />
@@ -67,8 +66,10 @@ const Comment = ({ postId, commentList, refreshFunction }) => {
                     Submit
                 </button>
             </form>
+        }
+
         </div>
     );
 };
 
-export default withRouter(Comment);
+export default SingleComment;
