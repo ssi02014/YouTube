@@ -36,14 +36,7 @@ const Header = (props) => {
             }
         })
     }
-    
-    //브라우저 종료했을 때 localStorage userID제거
-    window.addEventListener('beforeunload', () => {
-        if (localStorage.getItem('userID')) {
-            localStorage.removeItem('userID');
-        }
-    })
-    
+
         return (
             <header>
                 {login ? (

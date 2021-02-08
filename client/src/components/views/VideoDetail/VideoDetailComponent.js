@@ -4,6 +4,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import SideVideo from './Section/SideVideo';
 import Subscribe from './Section/Subscribe';
+import Comment from './Section/Comment';
 
 const VideoDetailComponent = (props) => {
     const videoId = props.match.params.videoId;
@@ -41,18 +42,20 @@ const VideoDetailComponent = (props) => {
                                 src={`http://localhost:5000/${videoDetail.filePath}`}
                                 controls 
                             />
-                            <List.Item actions={[subscribedButton]}
-                            >
+                            <List.Item actions={[subscribedButton]}>
                                 <List.Item.Meta
                                     avatar={<Avatar src={videoDetail.writer.image}/>}
                                     title={videoDetail.writer.name}
                                     description={videoDetail.description}
-                                >
-    
-                                </List.Item.Meta>
+                                />
                             </List.Item>
+
+                            {/* Comment */}
+                            <Comment />
                         </div>
                     </Col>
+
+                    {/* SideVideo */}
                     <Col lg={6} xs={24}>
                         <SideVideo></SideVideo>
                     </Col>
