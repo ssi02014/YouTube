@@ -9,8 +9,8 @@ const Header = (props) => {
     const [login, setLogin] = useState(false);
 
     useEffect(() => {
-        if(localStorage.getItem('userID')) {
-            setLogin(true);
+        if (localStorage.getItem('userID')) {
+            setLogin(!login);
         } else {
             axios.get('/api/users/logout')
                 .then(response => {
@@ -36,7 +36,13 @@ const Header = (props) => {
             }
         })
     }
-
+    
+    //브라우저 종료했을 때 localStorage userID제거
+    window.addEventListener('beforeunload', () => {
+        if (localStorage.getItem('userID')) {
+            localStorage.removeItem('userID');
+        }
+    })
     
         return (
             <header>
