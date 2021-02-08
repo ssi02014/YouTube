@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
+import { useSelector} from 'react-redux';
 import '../../../scss/Header.scss';
 
 
     
 const Header = (props) => {
+    console.log(user);
     const [login, setLogin] = useState(false);
 
     useEffect(() => {
         if (localStorage.getItem('userID')) {
             setLogin(!login);
-        } else {
+        } 
+        else {
             axios.get('/api/users/logout')
                 .then(response => {
                     if (response.data.success) {
                         setLogin(false);
                     }
-                })
+            })
         }
     }, []);
 

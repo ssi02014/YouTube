@@ -51,7 +51,7 @@ const VideoDetailComponent = (props) => {
                             </List.Item>
 
                             {/* Comment */}
-                            <Comment />
+                            <Comment postId={videoId} />
                         </div>
                     </Col>
 

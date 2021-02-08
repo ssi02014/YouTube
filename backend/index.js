@@ -13,6 +13,7 @@ const { auth } = require("./middleware/auth");
 const { User } = require("./models/User"); 
 const { Video } = require("./models/Video"); 
 const { Subscriber } = require("./models/Subscriber"); 
+const { Comment } = require("./models/Comment"); 
 
 app.use(bodyParser.json()); //application/json 분석해서 가져 올 수 있게 함
 
@@ -226,6 +227,7 @@ app.post('/api/video/getSubscriptionVideos', (req, res) => {
     })
 });
 
+//구독
 app.post('/api/subscribe/subscribeNumber', (req, res) => {
   Subscriber.find({ 'userTo': req.body.userTo })
   .exec((err, subscribe) => {
@@ -261,6 +263,21 @@ app.post('/api/subscribe/unSubscribe', (req, res) => {
   .exec((err, doc) => {
     if (err) return res.json({ success: false, err});
     return res.status(200).json({ success: true, doc });
+  })
+});
+
+//댓글
+app.post('/api/comment/saveComment', (req, res) => {
+  const comment = new Comment(req.body)
+
+  comment.save(( err, comment ) => {
+    if (err) return res.json({ success: false, err});
+    Comment.find({ '_id': comment._id })
+      .populate('writer')
+      .exec((err, result) => {
+        if(err) return res.json({ success: false, err })
+        return res.status(200).json({ success: true, result });
+      })
   })
 });
 
