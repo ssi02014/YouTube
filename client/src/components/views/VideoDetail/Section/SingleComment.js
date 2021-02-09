@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Comment, Avatar, Input } from 'antd';
 import { useSelector} from 'react-redux';
 import axios from 'axios';
+import LikeDislikes from './LikeDislikes';
 
 const SingleComment = ({ comment, postId, refreshFunction }) => {
     const user = useSelector(state => state.user);
@@ -38,7 +39,10 @@ const SingleComment = ({ comment, postId, refreshFunction }) => {
         })
     }
     const actions = [
-        <span onClick={onClickReplyOpen} key="comment-basic-reply-to">Reply to</span>
+        <>
+            <LikeDislikes userId={localStorage.getItem('userID')} commentId={comment._id} />
+            <span onClick={onClickReplyOpen} key="comment-basic-reply-to">Reply to</span>
+        </>
     ]
     
     return (
@@ -51,16 +55,33 @@ const SingleComment = ({ comment, postId, refreshFunction }) => {
             />
 
         {openReply &&
-            <form style ={{ display: 'flex', marginTop: '10px'}} onSubmit={onSubmit}>
+            <form style ={{ display: 'flex', margin: '20px 0'}} onSubmit={onSubmit}>
                 <textarea 
-                    style={{width: '100%', borderRadius: '5px'}} 
+                    style={{
+                        width: '70%',
+                        borderRadius: '5px',
+                        border: '1px solid #90caf9',
+                        height: '50px',
+                        resize: 'none',
+                        outline: 'none',
+                    }}  
                     onChange={onHandleChange}
                     value={commentValue}
                     placeholder="코멘트 작성하세요."
                 />
                 <br />
 
-                <button style={{width: '20%', height: '52px'}} onClick={onSubmit}>
+                <button 
+                    style={{
+                        width: '20%', 
+                        height: '52px', 
+                        outline: 'none',
+                        marginLeft: '10px',
+                        backgroundColor: '#bbdefb',
+                        border: '1px solid #90caf9',
+                        borderRadius: '5px',
+                    }}  
+                    onClick={onSubmit}>
                     Submit
                 </button>
             </form>

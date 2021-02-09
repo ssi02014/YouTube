@@ -65,14 +65,30 @@ const Comment = ({ postId, commentList, refreshFunction }) => {
 
             <form style ={{ display: 'flex', marginTop: '10px'}} onSubmit={onSubmit}>
                 <textarea 
-                    style={{width: '100%', borderRadius: '5px'}} 
+                    style={{
+                        width: '100%',
+                        borderRadius: '5px',
+                        height: '50px',
+                        resize: 'none',
+                        outline: 'none',
+                        border: '1px solid #90caf9',
+                    }} 
                     onChange={handleClick}
                     value={commentValue}
                     placeholder="코멘트 작성하세요."
                 />
                 <br />
 
-                <button style={{width: '20%', height: '52px'}} onClick={onSubmit}>
+                <button style={{
+                        width: '20%', 
+                        height: '52px', 
+                        outline: 'none',
+                        marginLeft: '10px',
+                        backgroundColor: '#bbdefb',
+                        border: '1px solid #90caf9',
+                        borderRadius: '5px',
+                    }} 
+                    onClick={onSubmit}>
                     Submit
                 </button>
             </form>

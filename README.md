@@ -26,6 +26,8 @@
 5. Comment  
     - 대댓글 기능
 6. Like, Dislike 기능
+    - Video의 like, dislike
+    - comment의 like, dislike
 
 <br>
 <br>
@@ -66,7 +68,7 @@
     <Icon type='plus' style={{fontSize: '3rem'}}/>
 
     //4.0 변경
-    import { PlusOutlined } from '@ant-design/icons';
+    import { PlusOutlined, LikeOutlined, DislikeOutlined } from '@ant-design/icons';
     <PlusOutlined type='plus' style={{fontSize: '3rem'}} />
 ```
 
