@@ -14,6 +14,8 @@ const { User } = require("./models/User");
 const { Video } = require("./models/Video"); 
 const { Subscriber } = require("./models/Subscriber"); 
 const { Comment } = require("./models/Comment"); 
+const { Like } = require("./models/Like"); 
+const { Dislike } = require("./models/Dislike"); 
 
 app.use(bodyParser.json()); //application/json 분석해서 가져 올 수 있게 함
 

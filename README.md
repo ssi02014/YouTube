@@ -25,6 +25,7 @@
     - 구독 페이지에서는 구독한 회원의 Video만 나오게 하기
 5. Comment  
     - 대댓글 기능
+6. Like, Dislike 기능
 
 <br>
 <br>
