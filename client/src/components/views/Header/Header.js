@@ -1,20 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, withRouter } from 'react-router-dom';
-import { useSelector} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import '../../../scss/Header.scss';
+import { auth } from '../../../actions/user_action';
 
 
     
 const Header = (props) => {
-    const user = useSelector(state => state.user);
+    const dispatch = useDispatch();
     const [login, setLogin] = useState(false);
     
 
     useEffect(() => {
+        dispatch(auth())
+            .then(response => {
+                //로그인 하지 않은 상태
+                if (!response.payload.isAuth) {
+                    if (localStorage.getItem('userID')) {
+                        localStorage.removeItem('userID');
+                        setLogin(false);
+                    }
+                } else {
+                    //로그인 한 상태
+                    if (!localStorage.getItem('userID')) {
+                        axios.get('/api/users/logout')
+                        .then(response => {
+                            if (response.data.sccess) {
+                                setLogin(false);
+                            }
+                        })
+                    }
+                }
+            })
+
         if (localStorage.getItem('userID')) {
             setLogin(!login);
         }
+
     }, []);
 
     const onClickLogoutHandler = () => {

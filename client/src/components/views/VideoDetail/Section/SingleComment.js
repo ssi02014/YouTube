@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Comment, Avatar, Input } from 'antd';
+import { Comment, Avatar} from 'antd';
 import { useSelector} from 'react-redux';
 import axios from 'axios';
 import LikeDislikes from './LikeDislikes';

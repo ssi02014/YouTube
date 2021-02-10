@@ -3,12 +3,18 @@
 
 <br>
 
-## 🔖 Boiler-plate를 사용하기 전 행동 수칙
+## 🔖 YouTube App을 사용하기 전 행동 수칙
 ### Boiler-Plater: https://github.com/ssi02014/BoilerPlate
-1. dev.js file을 config 폴더 안에 생성해주세요.
+1. dev.js file을 backend/config 폴더 안에 생성해주세요.
 2. mongoDB 정보를 dev.js file안에다가 넣어주세요.
-3. " npm install or yarn install "을 root directory에서 입력해주세요. (백엔드 종속성 다운받기)
-4. " npm install or yarn install "을 client directory에서 입력해주세요. (프론트엔드 종속성 다운받기)
+```javascript
+    //dev.js 파일 내용 예시
+    module.exports = {
+        mongoURI: 'mongodb+srv://minjae:******@boiler-plate.03g6t.mongodb.net/<dbname>?retryWrites=true&w=majority'
+    }
+```
+3. " npm install or yarn install "을 backend 폴더에서 입력해주세요. (백엔드 종속성 다운받기)
+4. " npm install or yarn install "을 client 폴더에서 입력해주세요. (프론트엔드 종속성 다운받기)
 
 <br>
 <br>
@@ -19,7 +25,7 @@
     - 서버에 비디오 저장
     - 서버에 비디오 썸네일 저장
 3. Video Detail Page
-    - 비디오 시청
+    - 업로드 된 비디오 시청
     - 사이드에 비디오 Section
 4. User Subscribe 
     - 구독 페이지에서는 구독한 회원의 Video만 나오게 하기
@@ -102,6 +108,8 @@
         value={videoTitle}
     />
 ```
+
+<br>
 
 ## 🏃 Client) router의 match 객체
 ### match 객체를 받아오려면 꼭! withRouter를 import 해야함
