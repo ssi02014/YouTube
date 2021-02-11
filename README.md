@@ -3,7 +3,7 @@
 
 <br>
 
-### 🎥 HomePage View
+## 🎥 HomePage View
 ![mainPage](https://user-images.githubusercontent.com/64779472/107622385-1c921b00-6c9b-11eb-95db-585964e407d0.PNG)
 
 <br>
@@ -11,9 +11,9 @@
 ## 🔖 YouTube App을 사용하기 전 행동 수칙
 ### Boiler-Plater: https://github.com/ssi02014/BoilerPlate
 1. **" npm install or yarn install "** 을 backend 폴더에서 입력해주세요. (백엔드 종속성 다운받기)
-2. **" npm install or yarn install "**을 client 폴더에서 입력해주세요. (프론트엔드 종속성 다운받기)
-3. backend 폴더에서 **" npm start or yarn start "**를 통해 server를 실행시켜주세요.
-4. cliend 폴더에서 **" npm start or yarn start "**를 통해 client를 실행시켜주세요.
+2. **" npm install or yarn install "** 을 client 폴더에서 입력해주세요. (프론트엔드 종속성 다운받기)
+3. backend 폴더에서 **" npm start or yarn start "** 를 통해 server를 실행시켜주세요.
+4. cliend 폴더에서 **" npm start or yarn start "** 를 통해 client를 실행시켜주세요.
 5. 회원가입을 해주세요. 
 6. 회원가입 한 계정을 통해서 로그인 해주세요.
 7. 로그인 후 App 기능을 확인합니다.
