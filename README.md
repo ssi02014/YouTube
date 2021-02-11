@@ -5,16 +5,10 @@
 
 ## 🔖 YouTube App을 사용하기 전 행동 수칙
 ### Boiler-Plater: https://github.com/ssi02014/BoilerPlate
-1. dev.js file을 backend/config 폴더 안에 생성해주세요.
-2. mongoDB 정보를 dev.js file안에다가 넣어주세요.
-```javascript
-    //dev.js 파일 내용 예시
-    module.exports = {
-        mongoURI: 'mongodb+srv://minjae:******@boiler-plate.03g6t.mongodb.net/<dbname>?retryWrites=true&w=majority'
-    }
-```
-3. " npm install or yarn install "을 backend 폴더에서 입력해주세요. (백엔드 종속성 다운받기)
-4. " npm install or yarn install "을 client 폴더에서 입력해주세요. (프론트엔드 종속성 다운받기)
+1. " npm install or yarn install "을 backend 폴더에서 입력해주세요. (백엔드 종속성 다운받기)
+2. " npm install or yarn install "을 client 폴더에서 입력해주세요. (프론트엔드 종속성 다운받기)
+3. Register를 통해 회원가입을 해주세요. 
+    - or ID: 1q2w3e4r@naver.com / Pwd: 1q2w3e4r 로그인을 해서 App 기능들을 확인해보세요
 
 <br>
 <br>
