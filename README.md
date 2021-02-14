@@ -20,6 +20,9 @@
 7. 로그인 후 App 기능을 확인합니다.
     - 또는, **ID: 1q2w3e4r@naver.com / Pwd: 1q2w3e4r** 로그인을 해서 App 기능들을 확인해보세요.
 
+❗. 만약 Video Upload 기능을 확인하고 싶다면, **ffmpeg**를 본인 PC에 설치하셔야 됩니다.
+    <ffmpeg>: https://ffmpeg.org/download.html
+
 <br />
 <br />
 
