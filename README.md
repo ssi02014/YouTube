@@ -7,7 +7,7 @@
 ![mainPage](https://user-images.githubusercontent.com/64779472/107622385-1c921b00-6c9b-11eb-95db-585964e407d0.PNG)
 
 <br />
-<hr />
+<br />
 
 ## 🔖 YouTube App을 사용하기 전 행동 수칙
 ### Boiler-Plater: https://github.com/ssi02014/BoilerPlate
