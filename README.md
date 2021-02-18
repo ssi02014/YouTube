@@ -10,7 +10,6 @@
 <br />
 
 ## 🔖 YouTube App을 사용하기 전 행동 수칙
-### Boiler-Plater: https://github.com/ssi02014/BoilerPlate
 1. **" npm install or yarn install "** 을 backend 폴더에서 입력해주세요. (백엔드 종속성 다운받기)
 2. **" npm install or yarn install "** 을 client 폴더에서 입력해주세요. (프론트엔드 종속성 다운받기)
 3. backend 폴더에서 **" npm start or yarn start "** 를 통해 server를 실행시켜주세요.
@@ -20,8 +19,11 @@
 7. 로그인 후 App 기능을 확인합니다.
     - 또는, **ID: 1q2w3e4r@naver.com / Pwd: 1q2w3e4r** 로그인을 해서 App 기능들을 확인해보세요.
 
-### ❗❗ 만약 Video Upload 기능을 확인하고 싶다면, **ffmpeg**를 본인 PC에 설치하셔야 됩니다. ❗❗
+### ❗❗ 만약 Video Upload 기능을 확인하고 싶다면, **ffmpeg**를 본인 PC에 설치하셔야 됩니다.
     - ffmpeg: https://ffmpeg.org/download.html
+
+### ❗❗ 본 프로젝트는 기존에 만든 Boiler-Plater의 서버와 공유되고 있습니다. 
+    - https://github.com/ssi02014/BoilerPlate
 
 <br />
 <br />
