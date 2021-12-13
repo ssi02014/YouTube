@@ -1,12 +1,9 @@
 # 💻 Youtube App
 ### node.js와 react로 만든 Youtube App
 
-<br />
-
-## 🎥 HomePage View
+## 🎥 MainPage View
 ![mainPage](https://user-images.githubusercontent.com/64779472/107622385-1c921b00-6c9b-11eb-95db-585964e407d0.PNG)
 
-<br />
 <br />
 
 ## 🔖 YouTube App을 사용하기 전 행동 수칙
@@ -21,13 +18,11 @@
 
 <br />
 
-### ❗❗ 만약 Video Upload 기능을 확인하고 싶다면, **ffmpeg**를 본인 PC에 설치하셔야 됩니다.
-    - ffmpeg: https://ffmpeg.org/download.html
+### ❗❗ 현재 MongoDB를 운영하고 있지 않는 프로젝트입니다. 참고해주시기 바랍니다.
 
 ### ❗❗ 본 프로젝트는 기존에 만든 Boiler-Plater의 서버와 공유되고 있습니다. 
     - Boiler-Plater: https://github.com/ssi02014/BoilerPlate
 
-<br />
 <br />
 
 ## 👨🏻‍💻 Youtube App 기능
@@ -49,7 +44,6 @@
     - comment의 like, dislike
 
 <br />
-<br />
 
 ## 🔍 Server 추가 라이브러리
 1. multer: 노드 서버에 파일을 저장하기 위한 Dependency
@@ -58,15 +52,12 @@
     - **ffmpeg 윈도우 설치 참고** : https://blog.naver.com/chandong83/222095346417
 
 <br />
-<br />
 
 ## 📈 Client 추가 라이브러리
 1. react-dropzone: video upload할 때 사용 (VideoUploadComponent)
 2. antd 라이브러리: 디자인을 편리하게 하기 위한 라이브러리
 3. multer: 노드 서버에 파일을 저장하기 위한 라이브러리
 
-<br />
-<hr />
 <br />
 
 ## 🏃 Server) static 파일들을 처리하기 위한 추가 소스 코드
