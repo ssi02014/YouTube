@@ -11,14 +11,8 @@
 2. **" npm install or yarn install "** 을 client 폴더에서 입력해주세요. (프론트엔드 종속성 다운받기)
 3. backend 폴더에서 **" npm start or yarn start "** 를 통해 server를 실행시켜주세요.
 4. client 폴더에서 **" npm start or yarn start "** 를 통해 client를 실행시켜주세요.
-5. 회원가입을 해주세요. 
-    - 또는, **ID: 1q2w3e4r@naver.com / Pwd: 1q2w3e4r** 로그인을 하셔도 됩니다.
-6. 회원가입 한 계정을 통해서 로그인 해주세요.
-7. 로그인 후 App 기능을 확인합니다.
 
 <br />
-
-### ❗❗ 현재 MongoDB를 운영하고 있지 않는 프로젝트입니다. 참고해주시기 바랍니다.
 
 ### ❗❗ 본 프로젝트는 기존에 만든 Boiler-Plater의 서버와 공유되고 있습니다. 
     - Boiler-Plater: https://github.com/ssi02014/BoilerPlate
